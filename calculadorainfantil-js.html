@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Minha calculadora</title>
+    <style>
+      body {
+        font-family:cursive, sans-serif;
+        background: linear-gradient(#269218, #95c4c2);
+      }
+
+      .calculator {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: 10px solid #6d1b7c;
+        padding: 20px;
+        border-radius: 10px;
+        width: 300px;
+        margin: 50px auto;
+      }
+
+      .calculator img {
+        width: 80px;
+        margin-bottom: 10px;
+      }
+
+      .calculator input[type="number"] {
+        margin: 5px;
+        padding: 5px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .calculator button {
+        margin: 5px;
+        padding: 5px;
+        width: 100%;
+        border-radius: 5px;
+        border: none;
+        background-color: #ccc;
+        color: #333;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .calculator button:hover {
+        background-color: #391997;
+        color: #56a62b;
+      }
+
+      .calculator .result {
+        font-size: 30px;
+        font-weight: bold;
+        margin: 10px 0;
+      }
+
+      .calculator .error {
+        color: red;
+        margin-top: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="calculator">
+      <img src="https://img.freepik.com/vetores-premium/calculadora-plana-para-educacao-infantil_29937-9167.jpg?w=826" alt="Calculadora" />
+      <label>Escolha uma operação:</label>
+      <select id="operation">
+        <option value="sum">Soma</option>
+        <option value="subtract">Subtração</option>
+        <option value="multiply">Multiplicação</option>
+        <option value="divide">Divisão</option>
+        <option value="exit">Sair</option>
+      </select>
+      <input type="number" id="number1" placeholder="Digite o primeiro número" />
+      <input type="number" id="number2" placeholder="Digite o segundo número" />
+      <button onclick="calculate()">Calcular</button>
+      <div class="result" id="result"></div>
+      <div class="error" id="error"></div>
+    </div>
+  
+<script>
+function sum(number1, number2) {
+  return number1 + number2;
+}
+
+function subtract(number1, number2) {
+  return number1 - number2;
+}
+
+function multiply(number1, number2) {
+  return number1 * number2;
+}
+
+function divide(number1, number2) {
+  if (number2 === 0) {
+    throw new Error("Não é possível dividir por zero");
+  }
+
+  return number1 / number2;
+}
+
+function calculate() {
+  const operation = document.getElementById("operation").value;
+  const number1 = parseFloat(document.getElementById("number1").value);
+  const number2 = parseFloat(document.getElementById("number2").value);
+  const resultElement = document.getElementById("result");
+  const errorElement = document.getElementById("error");
+
+  errorElement.textContent = "";
+  try {
+let result;
+switch (operation) {
+  case "sum":
+    result = sum(number1, number2);
+    break;
+  case "subtract":
+    result = subtract(number1, number2);
+    break;
+  case "multiply":
+    result = multiply(number1, number2);
+    break;
+  case "divide":
+    result = divide(number1, number2);
+    break;
+  case "exit":
+    resultElement.textContent = "Até a próxima!";
+    return;
+  default:
+    throw new Error("Operação inválida");
+}
+
+resultElement.textContent = `Resultado: ${result}`;
+} catch (error) {
+errorElement.textContent = error.message;
+}
+}
+      </script>
+    </body>
+  </html>
